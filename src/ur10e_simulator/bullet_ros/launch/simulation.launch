@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="rviz" default="true"/>
+
+    <param name="gripper" value="true"/>
+    <param name="/bullet_ros/joint_names" value=""/>
+    <param name="/bullet_ros/init_pos" value=""/>
+
+    <param name="robot_description" textfile="$(find bullet_ros)/urdf/ur10e.urdf"/>
+    <include file="$(find ur10e_moveit_config)/launch/moveit_planning_execution.launch">
+        <arg name="gripper" value="true"/>
+    </include>
+
+    <!-- Launch RVIZ -->
+    <include if="$(arg rviz)" file="$(find ur10e_moveit_config)/launch/moveit_rviz.launch"/>
+
+      <!-- Load controller settings -->
+    <group ns="robot">
+        <rosparam file="$(find bullet_ros)/config/ur10e_controllers.yaml" command="load"/>
+        <remap to="/scaled_pos_joint_traj_controller/follow_joint_trajectory" from="/robot/scaled_pos_joint_traj_controller/follow_joint_trajectory"/>
+        <remap to="/joint_group_vel_controller/command" from="/robot/joint_group_vel_controller/command"/>
+        <arg name="controllers" default="joint_state_controller scaled_pos_joint_traj_controller"/>
+
+        <node name="controller_spawner_main" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+              args="$(arg controllers)"/>
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+              args="--stopped joint_group_vel_controller"/>
+
+        <node name="bullet_ros" type="bullet_ros" pkg="bullet_ros" output="screen"/>
+    </group>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+    <node name="finger_tf_broadcaster" pkg="bullet_ros" type="rg_finger_publisher.py" output="screen" />
+    <node name="pyUR" pkg="bullet_ros" type="main.py" output="screen" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true" output="screen">
+            <rosparam param="source_list">["/robot/joint_states", "/jaws/joint_states", "/finger/joint_states"]</rosparam>
+            <rosparam param="rate">250</rosparam>
+    </node>
+</launch>

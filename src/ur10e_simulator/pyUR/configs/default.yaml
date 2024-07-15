@@ -1,0 +1,53 @@
+vhacd: # global vhacd
+  use_vhacd: True # whether to use VHACD for collision detection
+                    # default: True
+                    # True, False
+  force_vhacd: False # whether to force creation of VHACD meshes if they are already exists
+                     # default: False
+                     # False, True
+  force_vhacd_urdf: True # whether to force creation of URDF with paths changed to VHACD meshes if it are already exists
+                         # default: True
+                         # False, True
+robot_urdf_path: "../../../UR10e_meshes/ur10e.urdf" # path to Robot URDF file relative to pyur.py
+                               # default: "../iCub/full.urdf"
+                               # str
+gui: True # whether to sho GUI
+          # default: True
+          # True, False
+tolerance:
+  joint: 1e-3 # circa 2 degrees
+end_effector: "onrobot_rg6_base_link" # end effector name
+                       # default: "l_hand"
+                       # str
+initial_joint_angles: {"shoulder_lift_joint": -90, "elbow_joint": 90, "shoulder_pan_joint": 90, "wrist_2_joint": 90}
+#initial_joint_angles: {"shoulder_lift_joint": -90}
+show_collision: True
+urdfs: # other than robot urdfs or .obj files
+  paths: [ball/ball.obj] # path to files relative "other_meshes" directory
+  positions: [[-0.1, 0.05, 1]] # position of the mesh/urdf base link in the world frame
+  fixed: [False] # whether the mesh/urdf can move in space
+  color: [[1, 1, 0]] # color on RGB format (0-1)
+skin: # skin settings
+  use: True # whether to show and simulate skin
+              # default: False
+              # True, False
+  period: 25 # FPS for skin
+
+collision_tolerance: 0.001
+debug: False
+log: # log settings
+  log: False # whether to log data
+            # default: True
+            # True, False
+  period: 0.01 # period of logging
+            # default: 0.01
+            # float; 0 for logging as fast as every simulation step
+            # it will never log faster than the simulation step
+simulation_step: 240   # during each simulation step, the simulation time will advance for 1/simulation_step seconds
+                       # default: 240 (the default bullet simulation step)
+                       # float
+                       # the higher, the more precise simulation, but slower simulation
+                       # values lower than 200 will most probably break the simulation
+self_collisions: True # Whether to detect self collisions of the links of the robot
+                       # default: True
+                       # True, False

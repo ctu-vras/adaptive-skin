@@ -1,0 +1,8 @@
+*.idea*
+*__pycache__*
+*.csv
+*catkin*
+build*
+devel*
+logs*
+*_build*

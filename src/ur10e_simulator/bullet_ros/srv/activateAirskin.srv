@@ -1,0 +1,6 @@
+int32 pad_id
+float32 effort
+bool follow
+bool increase_effort
+---
+bool success
