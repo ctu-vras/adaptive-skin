@@ -1,7 +1,12 @@
 # Adaptive Electronic Skin Sensitivity for Safe Human-Robot Interaction
 
-This repository contains code for paper "Adaptive Electronic Skin Sensitivity for Safe Human-Robot Interaction" by 
-Lukáš Rustler, Matěj Mísař and Matěj Hoffmann.  
+This repository contains code for the article:
+
+**Rustler, L.; Misar, M. & Hoffmann, M. (2024), Adaptive Electronic Skin Sensitivity for Safe Human-Robot Interaction, in 'IEEE-RAS International Conference on Humanoid Robots (Humanoids)', IEEE.**  
+
+Preprint available at [arxiv](https://arxiv.org/abs/2409.06369).
+
+Video is available at [https://youtu.be/kWt2J1Qgzpk](https://youtu.be/kWt2J1Qgzpk).
 
 **Maintainer**: Lukas Rustler, lukas.rustler@fel.cvut.cz  
 
